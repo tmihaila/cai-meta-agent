@@ -1,0 +1,19 @@
+{
+  "feature_columns": [
+    "num_issues",
+    "total_values",
+    "avg_values_per_issue",
+    "max_values_per_issue",
+    "min_values_per_issue",
+    "log_outcome_space_size",
+    "reserved_value",
+    "max_weight",
+    "min_weight",
+    "weight_std",
+    "weight_entropy",
+    "avg_value_std",
+    "weight_concentration",
+    "first_offer_utility"
+  ],
+  "best_val_loss": 0.2600257992744446
+}
