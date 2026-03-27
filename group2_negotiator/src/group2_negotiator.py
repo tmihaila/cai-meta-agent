@@ -8,11 +8,11 @@ from src.features import extract_all_features, FEATURE_COLUMNS
 from src.opponent_model import FrequencyOpponentModel
 from src.hybrid_nn import ConcessionNet
 
-MODEL_DIR = Path("models")
+MODEL_DIR = Path(__file__).resolve().parent.parent / "models"
 DEFAULT_E = 0.5  # e < 1 = boulware, e = 1 = linear, e > 1 = conceder
 
 
-class HybridAgent(SAONegotiator):
+class Group2_Negotiator(SAONegotiator):
     def __init__(self, *args, model_dir: Path = MODEL_DIR, **kwargs):
         super().__init__(*args, **kwargs)
         self._model_dir = model_dir
