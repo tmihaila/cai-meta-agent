@@ -20,7 +20,7 @@ from negmas.sao import (
 )
 
 TOURNAMENT_AGENTS = {
-    "HybridAgent": lambda: Group2_Negotiator(name="hybrid"),
+    "Group2_Negotiator": lambda: Group2_Negotiator(name="hybrid"),
     "AspirationNegotiator": AspirationNegotiator,
     "BoulwareTBNegotiator": BoulwareTBNegotiator,
     "NaiveTitForTatNegotiator": NaiveTitForTatNegotiator,
@@ -32,7 +32,7 @@ TOURNAMENT_AGENTS = {
 register_agents(TOURNAMENT_AGENTS)
 
 DOMAINS_DIR = Path(__file__).resolve().parent.parent / "domains_python"
-N_STEPS = 100
+N_STEPS = 1
 
 
 def make_tournament_agent(name):
@@ -139,19 +139,19 @@ def print_results(df, agent_names):
     print(f"{'Rank':<5} {'Agent':<30} {'Utility':>8} {'Nash':>8} {'Agree%':>8} {'Games':>6}")
     print("-" * 68)
     for rank, (name, s) in enumerate(ranked, 1):
-        tag = " <--" if name == "HybridAgent" else ""
+        tag = " <--" if name == "Group2_Negotiator" else ""
         print(f"{rank:<5} {name:<30} {s['utility']:>8.4f} {s['nash']:>8.4f} {s['agreement']:>7.1%} {s['n']:>6}{tag}")
 
     print(f"\n{sep}")
-    print("HEAD-TO-HEAD: HybridAgent vs each opponent")
+    print("HEAD-TO-HEAD: Group2_Negotiator vs each opponent")
     print(sep)
-    print(f"{'Opponent':<30} {'Hybrid U':>9} {'Opp U':>9} {'Nash':>8} {'Agree%':>8} {'Avg e':>7}")
+    print(f"{'Opponent':<30} {'Group2 U':>9} {'Opp U':>9} {'Nash':>8} {'Agree%':>8} {'Avg e':>7}")
     print("-" * 74)
     for opp in agent_names:
-        if opp == "HybridAgent":
+        if opp == "Group2_Negotiator":
             continue
-        h_as_a = df[(df["agent_a"] == "HybridAgent") & (df["agent_b"] == opp)]
-        h_as_b = df[(df["agent_b"] == "HybridAgent") & (df["agent_a"] == opp)]
+        h_as_a = df[(df["agent_a"] == "Group2_Negotiator") & (df["agent_b"] == opp)]
+        h_as_b = df[(df["agent_b"] == "Group2_Negotiator") & (df["agent_a"] == opp)]
         h_utils = list(h_as_a["utility_a"]) + list(h_as_b["utility_b"])
         o_utils = list(h_as_a["utility_b"]) + list(h_as_b["utility_a"])
         nash_vals = list(h_as_a["nash"]) + list(h_as_b["nash"])

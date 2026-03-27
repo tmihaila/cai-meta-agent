@@ -23,7 +23,7 @@ from src.agents import OPPONENT_NAMES, OPPONENTS, register_agents, make_agent
 from src.group2_negotiator import Group2_Negotiator
 
 UNSEEN_OPPONENTS = {
-    "HybridAgent": Group2_Negotiator(name="self_hybrid"),
+    "Group2_Negotiator": Group2_Negotiator(name="self_hybrid"),
     "MiCRONegotiator": MiCRONegotiator,
     "NiceNegotiator": NiceNegotiator,
     "RandomNegotiator": RandomNegotiator,
@@ -38,7 +38,7 @@ ALL_EVAL_OPPONENTS = {**OPPONENTS, **UNSEEN_OPPONENTS}
 
 DOMAINS_DIR = Path(__file__).resolve().parent.parent / "domains_python"
 ALPHA = 0.7
-N_STEPS = 100
+N_STEPS = 1
 
 
 def compute_score(au, ou):
@@ -94,7 +94,7 @@ def run_hybrid_negotiation(issues, ufun_agent, ufun_opp, opp_name, n_steps,
                           pareto_front, kalai_point):
     session = SAOMechanism(issues=issues, n_steps=n_steps)
     agent = Group2_Negotiator(name="hybrid")
-    if (opp_name == "HybridAgent"):
+    if (opp_name == "Group2_Negotiator"):
         opponent = Group2_Negotiator(name="opponent_hybrid")
     else:
         opponent = make_agent(opp_name)
@@ -201,10 +201,10 @@ def print_statistics(df: pd.DataFrame):
 
     print("(* = unseen during training)")
     print(f"\n{sep}")
-    print("SELF-PLAY (HybridAgent vs HybridAgent)")
+    print("(Group2_Negotiator vs Group2_Negotiator)")
     print(sep)
 
-    df_self = df[df["opponent"] == "HybridAgent"]
+    df_self = df[df["opponent"] == "Group2_Negotiator"]
 
     if not df_self.empty:
         print(f"Total self-play matchups: {len(df_self)}")
@@ -220,7 +220,7 @@ def print_statistics(df: pd.DataFrame):
         print("No self-play data found.")
 
     print(f"\n{sep}")
-    print("HYBRID AGENT RESULTS")
+    print("Group2_Negotiator RESULTS")
     print(sep)
     print(f"Total matchups: {len(df)}")
     print(f"{'Metric':<25} {'Mean':>8} {'Std':>8}")
