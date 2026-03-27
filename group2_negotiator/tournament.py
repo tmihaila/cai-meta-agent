@@ -8,7 +8,7 @@ from negmas.sao import SAOMechanism
 
 from src.domain_loader import list_domains, load_domain
 from src.agents import make_agent, register_agents
-from src.hybrid_agent import Group2_Negotiator
+from src.group2_negotiator import Group2_Negotiator
 
 from negmas.sao import (
     AspirationNegotiator,
