@@ -20,10 +20,10 @@ from negmas.sao import (
 
 from src.domain_loader import list_domains, load_domain
 from src.agents import OPPONENT_NAMES, OPPONENTS, register_agents, make_agent
-from src.hybrid_agent import HybridAgent
+from src.group2_negotiator import Group2_Negotiator
 
 UNSEEN_OPPONENTS = {
-    "HybridAgent": HybridAgent(name="self_hybrid"),
+    "HybridAgent": Group2_Negotiator(name="self_hybrid"),
     "MiCRONegotiator": MiCRONegotiator,
     "NiceNegotiator": NiceNegotiator,
     "RandomNegotiator": RandomNegotiator,
@@ -93,9 +93,9 @@ def compute_kalai_point(outcomes, ufun_a, ufun_b):
 def run_hybrid_negotiation(issues, ufun_agent, ufun_opp, opp_name, n_steps,
                           pareto_front, kalai_point):
     session = SAOMechanism(issues=issues, n_steps=n_steps)
-    agent = HybridAgent(name="hybrid")
+    agent = Group2_Negotiator(name="hybrid")
     if (opp_name == "HybridAgent"):
-        opponent = HybridAgent(name="opponent_hybrid")
+        opponent = Group2_Negotiator(name="opponent_hybrid")
     else:
         opponent = make_agent(opp_name)
 

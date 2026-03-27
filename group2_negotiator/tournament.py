@@ -8,7 +8,7 @@ from negmas.sao import SAOMechanism
 
 from src.domain_loader import list_domains, load_domain
 from src.agents import make_agent, register_agents
-from src.hybrid_agent import HybridAgent
+from src.hybrid_agent import Group2_Negotiator
 
 from negmas.sao import (
     AspirationNegotiator,
@@ -20,7 +20,7 @@ from negmas.sao import (
 )
 
 TOURNAMENT_AGENTS = {
-    "HybridAgent": lambda: HybridAgent(name="hybrid"),
+    "HybridAgent": lambda: Group2_Negotiator(name="hybrid"),
     "AspirationNegotiator": AspirationNegotiator,
     "BoulwareTBNegotiator": BoulwareTBNegotiator,
     "NaiveTitForTatNegotiator": NaiveTitForTatNegotiator,
@@ -55,8 +55,8 @@ def run_match(issues, ufun_a, ufun_b, name_a, name_b, n_steps):
     ua = float(ufun_a(agreement)) if agreement else float(ufun_a.reserved_value)
     ub = float(ufun_b(agreement)) if agreement else float(ufun_b.reserved_value)
 
-    hybrid_e_a = agent_a._e if isinstance(agent_a, HybridAgent) else None
-    hybrid_e_b = agent_b._e if isinstance(agent_b, HybridAgent) else None
+    hybrid_e_a = agent_a._e if isinstance(agent_a, Group2_Negotiator) else None
+    hybrid_e_b = agent_b._e if isinstance(agent_b, Group2_Negotiator) else None
 
     return {
         "utility_a": ua,
