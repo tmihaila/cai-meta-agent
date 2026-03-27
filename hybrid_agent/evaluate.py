@@ -24,13 +24,13 @@ from src.hybrid_agent import HybridAgent
 
 UNSEEN_OPPONENTS = {
     "HybridAgent": HybridAgent(name="self_hybrid"),
-    # "MiCRONegotiator": MiCRONegotiator,
-    # "NiceNegotiator": NiceNegotiator,
-    # "RandomNegotiator": RandomNegotiator,
-    # "ToughNegotiator": ToughNegotiator,
-    # "SimpleTitForTatNegotiator": SimpleTitForTatNegotiator,
-    # "TopFractionNegotiator": TopFractionNegotiator,
-    # "FirstOfferOrientedTBNegotiator": FirstOfferOrientedTBNegotiator,
+    "MiCRONegotiator": MiCRONegotiator,
+    "NiceNegotiator": NiceNegotiator,
+    "RandomNegotiator": RandomNegotiator,
+    "ToughNegotiator": ToughNegotiator,
+    "SimpleTitForTatNegotiator": SimpleTitForTatNegotiator,
+    "TopFractionNegotiator": TopFractionNegotiator,
+    "FirstOfferOrientedTBNegotiator": FirstOfferOrientedTBNegotiator,
 }
 register_agents(UNSEEN_OPPONENTS)
 
@@ -198,6 +198,26 @@ def evaluate(test_domains=None, seen_only=False, unseen_only=False):
 
 def print_statistics(df: pd.DataFrame):
     sep = "=" * 130
+
+    print("(* = unseen during training)")
+    print(f"\n{sep}")
+    print("SELF-PLAY (HybridAgent vs HybridAgent)")
+    print(sep)
+
+    df_self = df[df["opponent"] == "HybridAgent"]
+
+    if not df_self.empty:
+        print(f"Total self-play matchups: {len(df_self)}")
+        print(f"{'Metric':<25} {'Mean':>8}")
+        print("-" * 35)
+        print(f"{'Agreement rate':<25} {df_self['agreement'].mean():>8.2%}")
+        print(f"{'Utility':<25} {df_self['utility'].mean():>8.4f}")
+        print(f"{'Nash':<25} {df_self['nash'].mean():>8.4f}")
+        print(f"{'Social welfare':<25} {df_self['social_welfare'].mean():>8.4f}")
+        print(f"{'Pareto distance':<25} {df_self['pareto_dist'].mean():>8.4f}")
+        print(f"{'Kalai distance':<25} {df_self['kalai_dist'].mean():>8.4f}")
+    else:
+        print("No self-play data found.")
 
     print(f"\n{sep}")
     print("HYBRID AGENT RESULTS")
